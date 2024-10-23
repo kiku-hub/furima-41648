@@ -4,19 +4,18 @@
 
 | Column             | Type   | Options                     |
 | ------------------ | ------ | --------------------------- |
-| nickname           | string | null: false, unique: true   |
+| nickname           | string | null: false                 |
 | email              | string | null: false, unique: true   |
-| password           | string | null: false                 |
+| encrypted_password | string | null: false                 |
 | last_name          | string | null: false                 |
 | first_name         | string | null: false                 |
 | last_name_kana     | string | null: false                 |
 | first_name_kana    | string | null: false                 |
-| birth_date         | string | null: false                 |
+| birth_date         | date   | null: false                 |
 
 ### Association
 has_many :items
 has_many :orders
-has_many :comments
 
 ## itemsテーブル
 
@@ -29,13 +28,12 @@ has_many :comments
 | condition_id      | integer   | null: false                 |
 | shipping_fee_id   | integer   | null: false                 |
 | shipping_region_id| integer   | null: false                 |
-| shipping_days_id  | integer   | null: false                 |
+| shipping_day_id   | integer   | null: false                 |
 | user              | references| null: false,foreign_key:true|
 
 ### Association
 belongs_to :user
 has_one :order
-has_many :comments
 
 ## ordersテーブル
 
@@ -57,21 +55,9 @@ has_one :address
 | region_id    | integer    | null: false                    |
 | city         | string     | null: false                    |
 | house_number | string     | null: false                    |
-| building_name| string     | null: false                    |
+| building_name| string     |                                |
 | phone_number | string     | null: false                    |
 | order        | references | null: false, foreign_key: true |
 
 ### Association
 belongs_to :order
-
-##　commentsテーブル
-
-| Column       | Type       | Options                        |
-| -------      | ---------- | ------------------------------ |
-| message      | text       | null: false                    |
-| user         | references | null: false, foreign_key: true |
-| item         | references | null: false, foreign_key: true |
-
-### Association
-belongs_to :user
-belongs_to :item
