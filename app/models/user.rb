@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :nickname, presence: true
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥ー]+\z/, message: 'は全角文字で入力してください' }
-  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥ー]+\z/, message: 'は全角文字で入力してください' }
-  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/, message: 'は全角カタカナで入力してください' }
-  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ン]+\z/, message: 'は全角カタカナで入力してください' }
+  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/, message: 'は全角文字で入力してください' }
+  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/, message: 'は全角文字で入力してください' }
+  validates :last_name_kana, presence: true, format: { with: /\A[ァ-ンー]+\z/, message: 'は全角カタカナで入力してください' }
+  validates :first_name_kana, presence: true, format: { with: /\A[ァ-ンー]+\z/, message: 'は全角カタカナで入力してください' }
   validates :birth_date, presence: true
 
   # パスワードに関するバリデーション
