@@ -2,6 +2,7 @@ class Item < ApplicationRecord
   # アソシエーションの設定
   belongs_to :user
   has_one :order
+  has_one_attached :image # Active Storageで画像を紐付ける
 
   # バリデーションの設定
   validates :name, presence: true
