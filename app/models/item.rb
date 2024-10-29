@@ -3,7 +3,6 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   # アソシエーションの設定
-  belongs_to :genre
   belongs_to :user
   belongs_to :category # カテゴリーとの関連付け
   belongs_to :condition # 商品の状態との関連付け
