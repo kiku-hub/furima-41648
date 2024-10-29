@@ -1,6 +1,15 @@
 class Item < ApplicationRecord
+  # ActiveHashを利用するための設定
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
   # アソシエーションの設定
+  belongs_to :genre
   belongs_to :user
+  belongs_to :category # カテゴリーとの関連付け
+  belongs_to :condition # 商品の状態との関連付け
+  belongs_to :shipping_fee # 配送料の負担との関連付け
+  belongs_to :region # 発送元の地域との関連付け
+  belongs_to :shipping_day # 発送までの日数との関連付け
   has_one :order
   has_one_attached :image # Active Storageで画像を紐付ける
 
@@ -9,11 +18,11 @@ class Item < ApplicationRecord
   validates :name, presence: { message: 'は必須です' } # 商品名は必須
   validates :description, presence: { message: 'は必須です' } # 商品の説明は必須
 
-  validates :category_id, presence: { message: 'は必須です' }, exclusion: { in: [nil, '---'], message: 'は無効です' } # カテゴリーは必須
-  validates :condition_id, presence: { message: 'は必須です' }, exclusion: { in: [nil, '---'], message: 'は無効です' } # 商品の状態は必須
-  validates :shipping_fee_id, presence: { message: 'は必須です' }, exclusion: { in: [nil, '---'], message: 'は無効です' } # 配送料の負担は必須
-  validates :region_id, presence: { message: 'は必須です' }, exclusion: { in: [nil, '---'], message: 'は無効です' } # 発送元の地域は必須
-  validates :shipping_day_id, presence: { message: 'は必須です' }, exclusion: { in: [nil, '---'], message: 'は無効です' } # 発送までの日数は必須
+  validates :category_id, presence: { message: 'は必須です' }, numericality: { other_than: 1, message: 'は無効です' } # カテゴリーは必須（1は'---'）
+  validates :condition_id, presence: { message: 'は必須です' }, numericality: { other_than: 1, message: 'は無効です' } # 商品の状態は必須（1は無効）
+  validates :shipping_fee_id, presence: { message: 'は必須です' }, numericality: { other_than: 1, message: 'は無効です' } # 配送料の負担は必須（1は無効）
+  validates :region_id, presence: { message: 'は必須です' }, numericality: { other_than: 1, message: 'は無効です' } # 発送元の地域は必須（1は無効）
+  validates :shipping_day_id, presence: { message: 'は必須です' }, numericality: { other_than: 1, message: 'は無効です' } # 発送までの日数は必須（1は無効）
 
   validates :price, presence: { message: 'は必須です' }, numericality: {
     only_integer: true,
