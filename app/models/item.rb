@@ -27,16 +27,6 @@ class Item < ApplicationRecord
     only_integer: true,
     greater_than_or_equal_to: 300,
     less_than_or_equal_to: 9_999_999,
-    message: 'は300以上9,999,999以下の整数でなければなりません'
+    message: 'は¥300以上の値段にしてください'
   } # 価格は必須で、300以上9,999,999以下かつ半角数値のみ
-
-  # エラーハンドリングの際の重複したエラーメッセージを防ぐ
-  validate :prevent_duplicate_errors
-
-  private
-
-  def prevent_duplicate_errors
-    # バリデーションエラーがあればカスタムメッセージを追加
-    errors.add(:base, '商品情報に誤りがあります。') if errors.any?
-  end
 end

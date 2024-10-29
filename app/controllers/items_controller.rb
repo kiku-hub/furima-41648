@@ -2,9 +2,8 @@ class ItemsController < ApplicationController
   # 特定のアクションに対してユーザー認証を適用
   before_action :authenticate_user!, only: [:new, :create]
 
-  # トップページ用の処理（必要に応じて記述）
+  # トップページ用の処理
   def index
-    # トップページに表示するアイテムを取得（例：最新の出品商品）
     @items = Item.all.order(created_at: :desc)
   end
 
@@ -21,7 +20,9 @@ class ItemsController < ApplicationController
     if @item.save
       redirect_to root_path, notice: '出品が完了しました。'
     else
-      render :new # エラーハンドリング: 失敗した場合は出品ページに戻る
+      # バリデーションエラー時の処理
+      flash.now[:alert] = '商品の出品に失敗しました。必須項目を確認してください。'
+      render :new, status: :unprocessable_entity, local: true
     end
   end
 
@@ -29,7 +30,16 @@ class ItemsController < ApplicationController
 
   # ストロングパラメータ
   def item_params
-    params.require(:item).permit(:image, :name, :description, :category_id, :condition_id, :shipping_fee_id, :region_id,
-                                 :shipping_day_id, :price).merge(user_id: current_user.id)
+    params.require(:item).permit(
+      :image,
+      :name,
+      :description,
+      :category_id,
+      :condition_id,
+      :shipping_fee_id,
+      :region_id,
+      :shipping_day_id,
+      :price
+    ).merge(user_id: current_user.id)
   end
 end
