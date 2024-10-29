@@ -75,7 +75,7 @@
           発送元の地域
           <span class="indispensable">必須</span>
         </div>
-        <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, { class: "select-box", id: "item-prefecture" }) %>
+        <%= f.collection_select(:region_id, Region.all, :id, :name, {}, { class: "select-box", id: "item-region" }) %>
         
         <div class="weight-bold-text">
           発送までの日数
