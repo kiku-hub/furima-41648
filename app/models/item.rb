@@ -31,4 +31,9 @@ class Item < ApplicationRecord
                       message: 'は¥300以上の値段にしてください'
                     },
                     format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力してください' } # 半角数字のみを許可
+
+  # 売り切れかどうかを判断するメソッド
+  def sold_out?
+    order.present? # 注文が存在すれば売り切れと判断
+  end
 end
