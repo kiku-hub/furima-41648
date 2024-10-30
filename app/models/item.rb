@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   belongs_to :shopping_fee
   belongs_to :region
   belongs_to :shopping_day
-  has_one :order
+  # has_one :order
   has_one_attached :image
 
   # バリデーションの設定

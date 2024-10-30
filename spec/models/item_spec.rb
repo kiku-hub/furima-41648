@@ -127,5 +127,13 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include('Price は¥300以上の値段にしてください')
       end
     end
+
+    context 'ユーザーとの関連に関するバリデーション' do
+      it 'ユーザーが紐づいていないと無効' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include('User must exist')
+      end
+    end
   end
 end
