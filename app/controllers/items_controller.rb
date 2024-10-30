@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   # トップページ用の処理
   def index
-    # @items = Item.all.order(created_at: :desc)
+    @items = Item.all.order(created_at: :desc)
   end
 
   # 商品出品ページを表示するアクション
