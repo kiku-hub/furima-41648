@@ -36,9 +36,9 @@ class ItemsController < ApplicationController
       :description,
       :category_id,
       :condition_id,
-      :shipping_fee_id,
+      :shopping_fee_id,
       :region_id,
-      :shipping_day_id,
+      :shopping_day_id,
       :price
     ).merge(user_id: current_user.id)
   end
