@@ -9,7 +9,7 @@ class Item < ApplicationRecord
   belongs_to :shopping_fee
   belongs_to :region
   belongs_to :shopping_day
-  has_one :order
+  # has_one :order
   has_one_attached :image
 
   # バリデーションの設定
@@ -29,11 +29,5 @@ class Item < ApplicationRecord
                       greater_than: 299,
                       less_than: 10_000_000,
                       message: 'は¥300以上の値段にしてください'
-                    },
-                    format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力してください' } # 半角数字のみを許可
-
-  # 売り切れかどうかを判断するメソッド
-  def sold_out?
-    order.present? # 注文が存在すれば売り切れと判断
-  end
+                    }
 end
