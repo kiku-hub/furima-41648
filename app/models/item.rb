@@ -29,6 +29,5 @@ class Item < ApplicationRecord
                       greater_than: 299,
                       less_than: 10_000_000,
                       message: 'は¥300以上の値段にしてください'
-                    },
-                    format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力してください' } # 半角数字のみを許可
+                    }
 end
