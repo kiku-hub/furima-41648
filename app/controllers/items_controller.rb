@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   # 特定のアクションに対してユーザー認証を適用
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit]
 
   # トップページ用の処理
   def index
@@ -30,7 +30,21 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
   private
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def ensure_user
+    return if @item.user == current_user
+
+    redirect_to root_path, alert: '他のユーザーの商品は編集できません'
+  end
 
   # ストロングパラメータ
   def item_params
