@@ -33,7 +33,7 @@ class Item < ApplicationRecord
                     }
 
   # 売り切れかどうかを判断するメソッド
-  # def sold_out?
-  # order.present? # 注文が存在すれば売り切れと判断
-  # end
+  def sold_out?
+    # order.present? # 注文が存在すれば売り切れと判断
+  end
 end
