@@ -4,7 +4,7 @@ class ItemsController < ApplicationController
 
   # トップページ用の処理
   def index
-    # @items = Item.all.order(created_at: :desc)
+    @items = Item.all.order(created_at: :desc)
   end
 
   # 商品出品ページを表示するアクション
@@ -24,6 +24,10 @@ class ItemsController < ApplicationController
       flash.now[:alert] = '商品の出品に失敗しました。必須項目を確認してください。'
       render :new, status: :unprocessable_entity, local: true
     end
+  end
+
+  def show
+    # @item = Item.find(params[:id])
   end
 
   private
