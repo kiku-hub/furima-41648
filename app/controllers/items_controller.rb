@@ -29,15 +29,12 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def edit
-    @item = Item.find(params[:id])
   end
 
   def update
-    @item = Item.find(params[:id])
     # 画像が選択されていない場合は、画像の更新をスキップ
     params[:item].delete(:image) if params[:item][:image].blank?
 
@@ -51,14 +48,13 @@ class ItemsController < ApplicationController
 
   private
 
+  # 共通の@itemセットメソッド
   def set_item
     @item = Item.find(params[:id])
   end
 
   def ensure_user
-    return if @item.user == current_user
-
-    redirect_to root_path, alert: '他のユーザーの商品は編集できません'
+    redirect_to root_path, alert: '他のユーザーの商品は編集できません' unless @item.user == current_user
   end
 
   # ストロングパラメータ
