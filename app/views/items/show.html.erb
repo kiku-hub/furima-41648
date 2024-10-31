@@ -25,11 +25,11 @@
     </div>
 
     <% if user_signed_in? %>
-      <% if @item.user == current_user && !@item.sold_out? %>
+      <% if @item.user == current_user %>
        <%= link_to "商品の編集", "#", class: "item-red-btn" %>
        <p class="or-text">or</p>
        <%= link_to "削除", "#", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "item-destroy" %>
-    <% elsif @item.user != current_user %>
+    <% else %>
         <%= link_to "購入画面に進む", "#", class: "item-red-btn" %>
       <% end %>
     <% end %>
