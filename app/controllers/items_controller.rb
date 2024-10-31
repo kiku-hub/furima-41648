@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   # 特定のアクションに対してユーザー認証を適用
-  before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
+  before_action :ensure_user, only: [:edit, :update]
 
   # トップページ用の処理
   def index
@@ -32,6 +34,19 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])
+    # 画像が選択されていない場合は、画像の更新をスキップ
+    params[:item].delete(:image) if params[:item][:image].blank?
+
+    if @item.update(item_params)
+      redirect_to item_path(@item), notice: '商品情報を更新しました'
+    else
+      flash.now[:alert] = '商品の更新に失敗しました。必須項目を確認してください。'
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
