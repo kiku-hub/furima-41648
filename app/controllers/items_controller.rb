@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   # 特定のアクションに対してユーザー認証を適用
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
-  before_action :ensure_user, only: [:edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_user, only: [:edit, :update, :destroy]
 
   # トップページ用の処理
   def index
@@ -28,12 +28,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  # 商品詳細ページを表示するアクション
   def show
   end
 
+  # 商品情報編集ページを表示するアクション
   def edit
   end
 
+  # 商品情報を更新するアクション
   def update
     # 画像が選択されていない場合は、画像の更新をスキップ
     params[:item].delete(:image) if params[:item][:image].blank?
@@ -46,6 +49,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  # 商品を削除するアクション
+  def destroy
+    if @item.destroy
+      redirect_to root_path, notice: '商品が削除されました。'
+    else
+      redirect_to item_path(@item), alert: '商品の削除に失敗しました。'
+    end
+  end
+
   private
 
   # 共通の@itemセットメソッド
@@ -53,6 +65,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  # 他のユーザーが商品編集や削除をできないようにするためのメソッド
   def ensure_user
     redirect_to root_path, alert: '他のユーザーの商品は編集できません' unless @item.user == current_user
   end
