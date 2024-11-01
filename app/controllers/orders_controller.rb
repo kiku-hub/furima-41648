@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
     else
       # バリデーションエラーのメッセージを取得
       flash.now[:alert] = @order_form.errors.full_messages.join(', ')
-      render :index
+      render :index, status: :unprocessable_entity, locals: { order_form: @order_form } # localsを追加
     end
   end
 

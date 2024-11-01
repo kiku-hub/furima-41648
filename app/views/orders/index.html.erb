@@ -1,4 +1,4 @@
-<%= render "shared/second-header"%>
+<%= render "shared/second-header" %>
 
 <div class='transaction-contents'>
   <div class='transaction-main'>
@@ -44,10 +44,10 @@
           </div>
           <div id="number-form" class="input-default"></div>
           <div class='available-card'>
-            <%= image_tag 'card-visa.gif', class: 'card-logo'%>
-            <%= image_tag 'card-mastercard.gif', class: 'card-logo'%>
-            <%= image_tag 'card-jcb.gif', class: 'card-logo'%>
-            <%= image_tag 'card-amex.gif', class: 'card-logo'%>
+            <%= image_tag 'card-visa.gif', class: 'card-logo' %>
+            <%= image_tag 'card-mastercard.gif', class: 'card-logo' %>
+            <%= image_tag 'card-jcb.gif', class: 'card-logo' %>
+            <%= image_tag 'card-amex.gif', class: 'card-logo' %>
           </div>
         </div>
         <div class="form-group">
@@ -80,6 +80,9 @@
             <span class="indispensable">必須</span>
           </div>
           <%= f.text_field :postal_code, class: "input-default", id: "postal-code", placeholder: "例）123-4567", maxlength: "8" %>
+          <% if @order_form.errors[:postal_code].any? %>
+            <div class="error-message"><%= @order_form.errors[:postal_code].join(', ') %></div>
+          <% end %>
         </div>
         <div class="form-group">
           <div class='form-text-wrap'>
@@ -87,6 +90,9 @@
             <span class="indispensable">必須</span>
           </div>
           <%= f.collection_select(:region_id, @regions, :id, :name, {}, { class: "select-box", id: "prefecture" }) %>
+          <% if @order_form.errors[:region_id].any? %>
+            <div class="error-message"><%= @order_form.errors[:region_id].join(', ') %></div>
+          <% end %>
         </div>
         <div class="form-group">
           <div class='form-text-wrap'>
@@ -94,6 +100,9 @@
             <span class="indispensable">必須</span>
           </div>
           <%= f.text_field :city, class: "input-default", id: "city", placeholder: "例）横浜市緑区" %>
+          <% if @order_form.errors[:city].any? %>
+            <div class="error-message"><%= @order_form.errors[:city].join(', ') %></div>
+          <% end %>
         </div>
         <div class="form-group">
           <div class='form-text-wrap'>
@@ -101,6 +110,9 @@
             <span class="indispensable">必須</span>
           </div>
           <%= f.text_field :house_number, class: "input-default", id: "addresses", placeholder: "例）青山1-1-1" %>
+          <% if @order_form.errors[:house_number].any? %>
+            <div class="error-message"><%= @order_form.errors[:house_number].join(', ') %></div>
+          <% end %>
         </div>
         <div class="form-group">
           <div class='form-text-wrap'>
@@ -115,6 +127,9 @@
             <span class="indispensable">必須</span>
           </div>
           <%= f.text_field :phone_number, class: "input-default", id: "phone-number", placeholder: "例）09012345678", maxlength: "11" %>
+          <% if @order_form.errors[:phone_number].any? %>
+            <div class="error-message"><%= @order_form.errors[:phone_number].join(', ') %></div>
+          <% end %>
         </div>
       </div>
       <%# /配送先の入力 %>
@@ -126,5 +141,3 @@
   </div>
 </div>
 <%= render "shared/second-footer" %>
-
-  
