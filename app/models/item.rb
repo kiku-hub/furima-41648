@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   belongs_to :region
   belongs_to :shopping_day
   # 注文との関連を追加
-  # has_one :order
+  has_one :order
   has_one_attached :image
 
   # バリデーションの設定
