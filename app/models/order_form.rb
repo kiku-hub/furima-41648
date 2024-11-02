@@ -4,7 +4,7 @@ class OrderForm
   attr_accessor :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :building_name, :phone_number, :token
 
   # バリデーション
-  validates :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :phone_number, presence: true
+  validates :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :phone_number, :token, presence: true
 
   # 郵便番号は「3桁-4桁」の半角文字列のみ
   validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'must be in the format XXX-XXXX' }
