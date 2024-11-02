@@ -1,7 +1,7 @@
 class OrderForm
   include ActiveModel::Model
 
-  attr_accessor :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :building_name, :phone_number
+  attr_accessor :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :building_name, :phone_number, :token
 
   # バリデーション
   validates :user_id, :item_id, :postal_code, :region_id, :city, :house_number, :phone_number, presence: true
