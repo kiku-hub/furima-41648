@@ -8,14 +8,13 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image, class: "item-box-img" %>  <%# 商品の画像を表示（必要に応じて修正） %>
-      <%# 商品が売れている場合は、sold outを表示しましょう %>
-  <%# <%= image_tag @item.image, class: "item-box-img"  商品の画像を表示（必要に応じて修正） %>
-  <%# if @item.sold_out? %>
-  <%#   <div class="sold-out"> %>
-  <%#     <span>Sold Out!!</span> %>
-  <%#   </div> %>
-  <%# end %>
-</div>
+      <% if @item.order.present? %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
+      <% end %>
+    </div>
+
     <div class="item-price-box">
       ¥ <%= @item.price %>  <%# 商品価格を表示 %>
       </span>
@@ -24,12 +23,12 @@
       </span>
     </div>
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && !@item.order.present? %>
       <% if @item.user == current_user %>
-       <%= link_to "商品の編集", edit_item_path(@item), class: "item-red-btn" %>
-       <p class="or-text">or</p>
-       <%= link_to "削除", item_path(@item), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "item-destroy" %>
-    <% else %>
+        <%= link_to "商品の編集", edit_item_path(@item), class: "item-red-btn" %>
+        <p class="or-text">or</p>
+        <%= link_to "削除", item_path(@item), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "item-destroy" %>
+      <% else %>
         <%= link_to "購入画面に進む", item_orders_path(@item), class: "item-red-btn" %>
       <% end %>
     <% end %>

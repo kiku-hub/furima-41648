@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :ensure_user, only: [:edit, :update, :destroy]
+  before_action :ensure_not_sold_out, only: [:edit, :update, :destroy]
 
   # トップページ用の処理
   def index
@@ -68,6 +69,11 @@ class ItemsController < ApplicationController
   # 他のユーザーが商品編集や削除をできないようにするためのメソッド
   def ensure_user
     redirect_to root_path, alert: '他のユーザーの商品は編集できません' unless @item.user == current_user
+  end
+
+  # 売却済みの商品には編集を許可しないメソッド
+  def ensure_not_sold_out
+    redirect_to root_path, alert: '売却済みの商品は編集できません。' if @item.order.present?
   end
 
   # ストロングパラメータ
