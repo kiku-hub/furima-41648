@@ -9,7 +9,6 @@ class Item < ApplicationRecord
   belongs_to :shopping_fee
   belongs_to :region
   belongs_to :shopping_day
-  # 注文との関連を追加
   has_one :order
   has_one_attached :image
 
@@ -31,9 +30,4 @@ class Item < ApplicationRecord
                       less_than: 10_000_000,
                       message: 'は¥300以上の値段にしてください'
                     }
-
-  # 売り切れかどうかを判断するメソッド
-  def sold_out?
-    # order.present? # 注文が存在すれば売り切れと判断
-  end
 end
